@@ -15,73 +15,73 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
-    private Player player1 = new Player(1, "Player 1", 1);
-    private Player player2 = new Player(2, "Player 2", 2);
-    private Player player3 = new Player(3, "Player 3", 3);
-    private Player newPlayer = new Player(4, "Player 4", 2);
-    private Player newPlayerWithSameId = new Player(1, "Player 5", 1);
-    private Collection<Player> players = new ArrayList<>(List.of(player1, player2, player3));
-    private Game game = new Game(players);
+    private final Player player1 = new Player(1, "Player 1", 1);
+    private final Player player2 = new Player(2, "Player 2", 2);
+    private final Player player3 = new Player(3, "Player 3", 3);
+    private final Player newPlayer = new Player(4, "Player 4", 2);
+    private final Player newPlayerWithSameId = new Player(1, "Player 5", 1);
+    private final Collection<Player> players = new ArrayList<>(List.of(player1, player2, player3));
+    private final Game game = new Game(players);
 
     @Test
-    void getAll() {
+    public void getAll() {
         assertTrue(game.getAll().containsAll(players));
     }
 
     @Test
-    void shouldFindByName() {
+    public void shouldFindByName() {
         Player expected = player1;
         Player actual = game.findBy("player 1");
         assertEquals(expected, actual);
     }
 
     @Test
-    void shouldNotFindByName() {
+    public void shouldNotFindByName() {
         assertNull(game.findBy("player"));
     }
 
     @Test
-    void shouldFindById() {
+    public void shouldFindById() {
         Player expected = player1;
         Player actual = game.findBy(1);
         assertEquals(expected, actual);
     }
 
     @Test
-    void shouldNotFindById() {
+    public void shouldNotFindById() {
         assertNull(game.findBy(5));
     }
 
     @Test
-    void shouldRegister() {
+    public void shouldRegister() {
         game.register(newPlayer);
         assertTrue(game.getAll().contains(newPlayer));
     }
 
     @Test
-    void shouldTrowAlreadyRegisteredException() {
+    public void shouldTrowAlreadyRegisteredException() {
         Assertions.assertThrows(AlreadyRegisteredException.class, () -> game.register(player1));
     }
 
     @Test
-    void shouldTrowAlreadyRegisteredExceptionWithSameId() {
+    public void shouldTrowAlreadyRegisteredExceptionWithSameId() {
         Assertions.assertThrows(AlreadyRegisteredException.class, () -> game.register(newPlayerWithSameId));
     }
 
     @Test
-    void shouldTrowNotRegisteredExceptionIfFirstPlayerIsNotRegistered() {
+    public void shouldTrowNotRegisteredExceptionIfFirstPlayerIsNotRegistered() {
         game.removeAll(List.of(player1));
         Assertions.assertThrows(NotRegisteredException.class, () -> game.round("Player 1", "Player 2"));
     }
 
     @Test
-    void shouldTrowNotRegisteredExceptionIfSecondPlayerIsNotRegistered() {
+    public void shouldTrowNotRegisteredExceptionIfSecondPlayerIsNotRegistered() {
         game.removeAll(List.of(player2));
         Assertions.assertThrows(NotRegisteredException.class, () -> game.round("Player 1", "Player 2"));
     }
 
     @Test
-    void shouldTrowNotRegisteredExceptionIfBothPlayersAreNotRegistered() {
+    public void shouldTrowNotRegisteredExceptionIfBothPlayersAreNotRegistered() {
         game.removeAll(List.of(player1, player2));
         Assertions.assertThrows(NotRegisteredException.class, () -> game.round("Player 1", "Player 2"));
     }

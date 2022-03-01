@@ -16,7 +16,7 @@ public class PlayerTest {
             "Another Player, Someone Else, false",
             "Empty String,, false"
     })
-    public void shouldMatchesFlights(String test, String name, boolean expected) {
+    public void shouldMatchesPlayers(String test, String name, boolean expected) {
         boolean actual = player.matches(name);
         assertEquals(actual, expected);
     }
